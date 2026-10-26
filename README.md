@@ -1,8 +1,8 @@
 # nlp-02-text-preprocessing
 
 [![Python 3.14](https://img.shields.io/badge/python-3.14%2B-blue?logo=python)](pyproject.toml)
-[![CI](https://github.com/denisecase/nlp-02-text-preprocessing/actions/workflows/ci-python-zensical.yml/badge.svg)](https://github.com/denisecase/nlp-02-text-preprocessing/actions/workflows/ci-python-zensical.yml)
-[![Documentation](https://img.shields.io/badge/docs-site-blue?logo=github)](https://denisecase.github.io/nlp-02-text-preprocessing/)
+[![CI](https://github.com/johnjamez187/nlp-02-text-preprocessing/actions/workflows/ci-python-zensical.yml/badge.svg)](https://github.com/johnjamez187/nlp-02-text-preprocessing/actions/workflows/ci-python-zensical.yml)
+[![Documentation](https://img.shields.io/badge/docs-site-blue?logo=github)](https://johnjamez187.github.io/nlp-02-text-preprocessing/)
 
 [![uv managed](https://img.shields.io/badge/uv-managed-DE5FE9)](https://docs.astral.sh/uv/)
 [![ty type checked](https://img.shields.io/badge/ty-type_checked-2F80ED)](https://docs.astral.sh/ty/)
@@ -13,9 +13,9 @@
 
 ## Project Overview
 
-Author: Denise Case
+Author: John James
 
-Date: 2026 October
+Date: October 2026
 
 Second project in the Web Mining and Applied NLP course.
 
@@ -127,7 +127,7 @@ uv run python -m pytest
 
 ## Project Documentation
 
-The [hosted documentation site](https://denisecase.github.io/nlp-02-text-preprocessing/)
+[hosted documentation site](https://johnjamez187.github.io/nlp-02-text-preprocessing/)
 is published using Zensical and GitHub Pages.
 
 The documentation site is used to present the project report,
@@ -141,8 +141,8 @@ to check project files and publish the docs.
 
 GitHub Actions include:
 
-- [CI: Python and Documentation Checks](https://github.com/denisecase/nlp-02-text-preprocessing/actions/workflows/ci-python-zensical.yml)
-- [CD: Documentation Deployment](https://github.com/denisecase/nlp-02-text-preprocessing/actions/workflows/deploy-zensical.yml)
+- [CI: Python and Documentation Checks](https://github.com/johnjamez187/nlp-02-text-preprocessing/actions/workflows/ci-python-zensical.yml)
+- [CD: Documentation Deployment](https://github.com/johnjamez187/nlp-02-text-preprocessing/actions/workflows/deploy-zensical.yml)
 
 ## Developer Reference
 
@@ -227,7 +227,7 @@ testing, documentation, and code quality.
 
 ## Links
 
-- [Hosted Documentation](https://denisecase.github.io/nlp-02-text-preprocessing/)
+- [Hosted Documentation](https://johnjamez187.github.io/nlp-02-text-preprocessing/)
 - [Professional Python Workflow Guide](https://denisecase.github.io/pro-analytics-02/)
 - [Citation](CITATION.cff)
 - [License](LICENSE)
