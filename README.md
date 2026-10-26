@@ -15,7 +15,7 @@
 
 Author: John James
 
-Date: October 2026
+Date: 2026 October
 
 Second project in the Web Mining and Applied NLP course.
 
