@@ -1,6 +1,12 @@
 # Web Mining and Applied NLP Project Report
 
-Web Mining and Applied NLP | Project 02 | Example Report
+Author: John James
+
+Date: 2026 October
+
+Course: Web Mining & Applied NLP
+
+Project: NLP-02 Text Preprocessing
 
 ## Overview
 
@@ -78,10 +84,10 @@ and modern language-model applications.
 
 ## Project Links
 
-- [GitHub Repository](https://github.com/denisecase/nlp-02-text-preprocessing)
-- [Example Script](https://github.com/denisecase/nlp-02-text-preprocessing/blob/main/src/nlp/text_preprocessing.py)
-- [Example Notebook](https://github.com/denisecase/nlp-02-text-preprocessing/blob/main/notebooks/text_preprocessing.ipynb)
-- [Example Data](https://github.com/denisecase/nlp-02-text-preprocessing/blob/main/data/text_data.txt)
+- [GitHub Repository](https://github.com/johnjamez187/nlp-02-text-preprocessing)
+- [Python Script](https://github.com/johnjamez187/nlp-02-text-preprocessing/blob/main/src/nlp/text_preprocessing.py)
+- [Jupyter Notebook](https://github.com/johnjamez187/nlp-02-text-preprocessing/blob/main/notebooks/text_preprocessing.ipynb)
+- [Project Dataset](https://github.com/johnjamez187/nlp-02-text-preprocessing/blob/main/data/text_data.txt)
 
 ## Project Resources
 
