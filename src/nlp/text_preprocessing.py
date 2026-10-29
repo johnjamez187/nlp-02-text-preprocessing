@@ -29,9 +29,11 @@ import logging
 from pathlib import Path
 import re
 
+from bs4 import BeautifulSoup
 from datafun_toolkit.logger import get_logger, log_header, log_path
 import matplotlib.pyplot as plt
 import polars as pl
+import requests
 
 print("Imports complete.")
 
@@ -55,27 +57,45 @@ log_path(LOG, "NOTEBOOKS_PATH", NOTEBOOKS_PATH)
 log_path(LOG, "SCRIPTS_PATH", SCRIPTS_PATH)
 
 # ============================================================
-# Section 2. Read the Text Data
+# Section 2. Retrieve Chiefs vs. Chargers Game Article
 # ============================================================
 
-# Choose a text file to analyze.
-# Each line is treated as one text record.
-input_path: Path = DATA_PATH / "text_data.txt"
+url = (
+    "https://www.chiefs.com/news/"
+    "chiefs-defeat-chargers-22-6-to-move-to-5-0-on-the-season"
+)
 
-# Read all lines from the file.
-text_list: list[str] = input_path.read_text(encoding="utf-8").splitlines()
+print("Retrieving Chiefs vs. Chargers game article...")
+print(f"Source: {url}")
 
-# Remove blank lines.
-text_list = [line.strip() for line in text_list if line.strip()]
+response = requests.get(url, timeout=30)
+response.raise_for_status()
 
-print("Data loaded successfully.")
-print(f"Loaded {len(text_list):,} text records.")
+soup = BeautifulSoup(response.text, "html.parser")
 
-# Combine all text rows into one large string for simple preprocessing.
-raw_text: str = " ".join(text_list)
+# Remove webpage navigation and unnecessary content.
+for element in soup(["script", "style", "nav", "footer", "header", "aside"]):
+    element.decompose()
 
+# Find the main article content.
+article = soup.find("article")
+
+if article is None:
+    raise ValueError("Article content not found. Check the webpage structure.")
+
+# Extract article paragraphs.
+paragraphs = [p.get_text(" ", strip=True) for p in article.find_all("p")]
+
+text_list = [p for p in paragraphs if p]
+raw_text = " ".join(text_list)
+
+if not raw_text:
+    raise ValueError("No article text was extracted.")
+
+print("Chiefs game article loaded successfully.")
+print(f"Loaded {len(text_list)} paragraphs.")
 print(f"Raw text length: {len(raw_text):,} characters")
-print("First 500 characters of raw text:")
+print("First 500 characters:")
 print(raw_text[:500])
 
 # ============================================================
@@ -205,6 +225,22 @@ summary_df: pl.DataFrame = pl.DataFrame(
 
 print("Preprocessing summary:")
 print(summary_df)
+
+# ============================================================
+# Section 8A. Calculate Preprocessing Reduction Percentage
+# ============================================================
+
+removed_tokens = count_of_raw_tokens - count_of_clean_tokens
+
+reduction_percentage = (
+    removed_tokens / count_of_raw_tokens * 100 if count_of_raw_tokens > 0 else 0
+)
+
+print("\nPreprocessing Effectiveness:")
+print(f"Original tokens: {count_of_raw_tokens:,}")
+print(f"Cleaned tokens: {count_of_clean_tokens:,}")
+print(f"Tokens removed: {removed_tokens:,}")
+print(f"Reduction percentage: {reduction_percentage:.2f}%")
 
 # ============================================================
 # Section 9. Build a Frequency Table with Polars
