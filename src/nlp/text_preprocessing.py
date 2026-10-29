@@ -57,46 +57,48 @@ log_path(LOG, "NOTEBOOKS_PATH", NOTEBOOKS_PATH)
 log_path(LOG, "SCRIPTS_PATH", SCRIPTS_PATH)
 
 # ============================================================
-# Section 2. Retrieve Chiefs vs. Chargers Game Article
+# Section 2. Load Local Text or Chiefs Article
 # ============================================================
+
+data_file = DATA_PATH / "text_data.txt"
 
 url = (
     "https://www.chiefs.com/news/"
     "chiefs-defeat-chargers-22-6-to-move-to-5-0-on-the-season"
 )
 
-print("Retrieving Chiefs vs. Chargers game article...")
-print(f"Source: {url}")
+if data_file.exists():
+    print("Loading local text data...")
+    raw_text = data_file.read_text(encoding="utf-8")
+    text_list = raw_text.splitlines()
 
-response = requests.get(url, timeout=30)
-response.raise_for_status()
+else:
+    print("Retrieving Chiefs vs. Chargers game article...")
+    print(f"Source: {url}")
 
-soup = BeautifulSoup(response.text, "html.parser")
+    response = requests.get(url, timeout=30)
+    response.raise_for_status()
 
-# Remove webpage navigation and unnecessary content.
-for element in soup(["script", "style", "nav", "footer", "header", "aside"]):
-    element.decompose()
+    soup = BeautifulSoup(response.text, "html.parser")
 
-# Find the main article content.
-article = soup.find("article")
+    for element in soup(["script", "style", "nav", "footer", "header", "aside"]):
+        element.decompose()
 
-if article is None:
-    raise ValueError("Article content not found. Check the webpage structure.")
+    article = soup.find("article")
 
-# Extract article paragraphs.
-paragraphs = [p.get_text(" ", strip=True) for p in article.find_all("p")]
+    if article is None:
+        raise ValueError("Article content not found.")
 
-text_list = [p for p in paragraphs if p]
-raw_text = " ".join(text_list)
+    paragraphs = [p.get_text(" ", strip=True) for p in article.find_all("p")]
 
-if not raw_text:
-    raise ValueError("No article text was extracted.")
+    text_list = [p for p in paragraphs if p]
+    raw_text = " ".join(text_list)
 
-print("Chiefs game article loaded successfully.")
-print(f"Loaded {len(text_list)} paragraphs.")
+if not raw_text.strip():
+    raise ValueError("No text was loaded.")
+
+print(f"Loaded {len(text_list)} text records.")
 print(f"Raw text length: {len(raw_text):,} characters")
-print("First 500 characters:")
-print(raw_text[:500])
 
 # ============================================================
 # Section 3. Inspect the Raw Text
